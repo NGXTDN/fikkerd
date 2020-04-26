@@ -36,7 +36,7 @@ c、开通支付宝在线充值，配置文件为： ~\webroot\fikcdn\config\ali
 
 Centos7下的安装：
 
-wget https://zhujiwiki.com/wp-content/uploads/2020/04/fikkerd-3.7.6-linux-x86-64.tar.gz
+wget https://github.com/NGXTDN/fikkerd/releases/download/3.76/fikkerd-3.7.6-linux-x86-64.tar.gz
 tar zxvf fikkerd-3.7.6-linux-x86-64.tar.gz
 cd fikkerd-3.7.6-linux-x86-64/
 chmod +x ./bin/fikkerd
