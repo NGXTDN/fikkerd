@@ -1,1 +1,65 @@
-Fikker被控安装与设置
+Fikker，比较成熟的#CDN#系统，#授权#相比较便宜，功能也够用，其中主控是免费的，只支持#Windows#系统；被控收费，支持Windows和#Linux#系统。个人或小规模使用，只需要被控就行。
+
+官方教程：https://www.fikker.com/help/index.html
+
+一、Fikker主控安装与设置
+
+1、安装主控
+
+Fikker的主控是绿色版，下载 https://www.fikker.com/dl/FikkerCDN.zip，解压到D盘根目录，安装vcredist_x86 目录下的 vs9/vs10/vs12/vs15/vs17 微软运行库，然后运行 注册服务.bat 和 启动服务.bat，即可使用。
+
+管理员登录地址: http://主控ip:1280/fikcdn/admin/
+登录帐号：admin，初始密码：123qwe
+
+监控员登录地址: http://主控ip:1280/fikcdn/admin/
+登录帐号：keeper，初始密码：123qwe
+注意：此账户已被默认冻结，可在【用户管理】中自行开启。
+
+用户端登录地址：http://主控ip:1280/fikcdn/cdn/
+说明: 用户端帐号由管理员创建/删除/冻结。
+
+2、开放注册
+
+a、修改 ~\webroot\fikcdn\config\config_global.php 里的配置 $FikConfig_AllowRegister = false 修改为 true
+b、用户注册链接地址为：http://your-cdn-ip:1280/fikcdn/cdn/register.php
+c、开通支付宝在线充值，配置文件为： ~\webroot\fikcdn\config\alipay_config.php
+
+3、设置支付宝充值
+
+打开：https://openhome.alipay.com/platform/accountSetting.htm，查询PID
+
+然后，打开：https://openhome.alipay.com/platform/keyManage.htm?keyType=partner，获取安全校验码(key)
+
+二、Fikker被控安装与设置
+
+网上流传的fikkerd-3.7.6全功能破解版。
+
+Centos7下的安装：
+
+wget https://zhujiwiki.com/wp-content/uploads/2020/04/fikkerd-3.7.6-linux-x86-64.tar.gz
+tar zxvf fikkerd-3.7.6-linux-x86-64.tar.gz
+cd fikkerd-3.7.6-linux-x86-64/
+chmod +x ./bin/fikkerd
+./fikkerd.sh install
+./fikkerd.sh start
+开放端口
+
+firewall-cmd --zone=public --add-port=80/tcp --permanent 
+firewall-cmd --zone=public --add-port=443/tcp --permanent 
+firewall-cmd --zone=public --add-port=6780/tcp --permanent 
+firewall-cmd --reload
+完成后访问http://IP:6780，初始密码为123456
+
+三、CDN开放购买设置
+
+主要是在主控端操作。
+
+1、添加服务器
+
+进入 http://主控ip:1280/fikcdn/admin/ ，左侧的 服务器列表 – 添加服务器，添加 Fikker被控的IP、密码等。同时可设置服务器组，便于辨识和管理。
+
+2、设置套餐
+
+左侧的 产品套餐 – 创建套餐，cname设置这个分组的（以后的CDN解析用）
+
+3、用户注册页面为：http://主控ip:1280/fikcdn/cdn/register.php ，登录页面为 http://主控ip:1280/fikcdn/cdn/login.php
